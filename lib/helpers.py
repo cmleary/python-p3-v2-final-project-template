@@ -21,6 +21,7 @@ def create_player():
     print("Player successfully added!")
     print(new_player)
     keyboard_input = input("* Press any key and then press 'return' to continue *\n")
+    return new_player
 
 def get_all_players():
     os.system('clear')

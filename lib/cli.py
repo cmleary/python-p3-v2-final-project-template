@@ -12,9 +12,10 @@ from helpers import (
     get_player_by_id,
     delete_player
  )
+from models import Score
 
 
-def game():
+def game(player):
 
     pygame.init()
 
@@ -22,7 +23,7 @@ def game():
     fps = 60
 
     bottom_panel = 150
-    screen_width = 750
+    screen_width = 800
     screen_height = 400 + bottom_panel
 
     screen = pygame.display.set_mode((screen_width, screen_height))
@@ -204,9 +205,9 @@ def game():
 
     damage_text_group = pygame.sprite.Group()
     #(posx, posy, name/call, health, attack, healings)
-    knight = Brawler(200, 260, 'Knight', 50, 10, 3)
-    D_Analyst1 = Brawler(550, 270, 'Data Analyst', 20, 6, 1)
-    D_Analyst2 = Brawler(700, 270, 'Data Analyst', 20, 6, 1)
+    knight = Brawler(200, 260, 'Knight', 35, 10, 2)
+    D_Analyst1 = Brawler(550, 270, 'Data Analyst', 1, 6, 1)
+    D_Analyst2 = Brawler(700, 270, 'Data Analyst', 1, 6, 1)
 
     DA_list = []
     DA_list.append(D_Analyst1)
@@ -338,8 +339,9 @@ def game():
         if game_over != 0:
             if game_over == 1:
                 screen.blit(victory_img, (250, 50))
-                time.sleep(5)
-                Score = knight.hp
+                score = knight.hp
+                Score.create(player.id, score)
+                pygame.time.delay(5000)
                 pygame.quit()
             if game_over == -1:
                 screen.blit(defeat_img, (290, 50))
@@ -356,6 +358,8 @@ def game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+                score = 0
+                Score.create(player.id, score)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 clicked = True
             else:
@@ -374,7 +378,9 @@ def main():
         if choice == "0":
             exit_program()
         elif choice in ["l", "L"]:
-            create_player()
+            player = create_player()
+
+            game(player)
         elif choice in ["r", "R"]:
             get_all_players()
         elif choice in ["r1", "R1"]:
@@ -391,11 +397,10 @@ def main():
 def menu():
     os.system('clear')
     print("Please select an option:")
-    print("L - Login")
+    print("L - Record player name and play game for score")
     print("R - Get all player info")
     print("R1 - Get info for 1 player and their score")
     print("D - Delete a player")
-    print("G game")
     print("0 - Exit the program")
 
 
