@@ -205,9 +205,9 @@ def game(player):
 
     damage_text_group = pygame.sprite.Group()
     #(posx, posy, name/call, health, attack, healings)
-    knight = Brawler(200, 260, 'Knight', 35, 10, 2)
-    D_Analyst1 = Brawler(550, 270, 'Data Analyst', 1, 6, 1)
-    D_Analyst2 = Brawler(700, 270, 'Data Analyst', 1, 6, 1)
+    knight = Brawler(200, 260, 'Knight', 40, 10, 2)
+    D_Analyst1 = Brawler(550, 270, 'Data Analyst', 20, 6, 1)
+    D_Analyst2 = Brawler(700, 270, 'Data Analyst', 20, 6, 1)
 
     DA_list = []
     DA_list.append(D_Analyst1)
